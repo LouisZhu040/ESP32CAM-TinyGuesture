@@ -28,18 +28,18 @@ Nighttime selfies are often underexposed because users forget to turn on the fla
 
 ## 🚀 How to use it
 
-(1) Open the PlatformIO and prepare to flash the ESP32CAM
-(2) Click the "upload" button from PlatformIO to get started
-(3) Use the following code to monitor the COM port(To be careful, # means the number of the COM port)
+-(1) Open the PlatformIO and prepare to flash the ESP32CAM
+-(2) Click the "upload" button from PlatformIO to get started
+-(3) Use the following code to monitor the COM port(To be careful, # means the number of the COM port)
 ~~~bash
 pio device monitor --port COM# --baud 115200 --rts 0 --dtr 0
 ~~~
-(4) Press the reset button on ESP32CAM
-(5) There is an IP for you to check the web that ESP32CAM made
-(6) Run the file named "FlaskSetup.py" to set up your Flask server
-(7) Press "Take Photo" to enable the capture function
-(8) After waiting for a while, the captured photo would be shown on your screen
-(9) The Flask will receive the data of the photo and save it into your local device
+-(4) Press the reset button on ESP32CAM
+-(5) There is an IP for you to check the web that ESP32CAM made
+-(6) Run the file named "FlaskSetup.py" to set up your Flask server
+-(7) Press "Take Photo" to enable the capture function
+-(8) After waiting for a while, the captured photo would be shown on your screen
+-(9) The Flask will receive the data of the photo and save it into your local device
 
 
 
