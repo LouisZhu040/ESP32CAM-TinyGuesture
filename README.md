@@ -5,7 +5,7 @@ Captures images via a browser interface and uploads them to a Flask server—des
 
 ---
 ## Tech Stack:
-ESP32-CAM, Arduino, Python, Flask, TinyML
+### ESP32-CAM, Arduino, Python, Flask, TinyML
 ---
 
 ## Why This Project Matters
