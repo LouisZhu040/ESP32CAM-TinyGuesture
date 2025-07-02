@@ -4,10 +4,15 @@
 Captures images via a browser interface and uploads them to a Flask server—designed for collecting gesture data as a foundation for on-device TinyML model deployment.
 
 ---
+## Tech Stack:
+ESP32-CAM, Arduino, Python, Flask, TinyML
+---
 
 ## Why This Project Matters
 
 Nighttime selfies are often underexposed because users forget to turn on the flash. This tool collects gesture-trigger images(✌) to train a TinyML model, with the goal of enabling local gesture-driven flash control—enhancing user experience with low-cost hardware.
+
+Additionally, this project utilizes the low-cost ESP32-CAM hardware to develop an edge AI system for real-time gesture recognition. Using Flask as a lightweight backend, it collects image data efficiently for model training. The ultimate goal is to deploy TinyML models on the device, enabling offline gesture-controlled flashlight functionality.
 
 ---
 
@@ -41,8 +46,17 @@ pio device monitor --port COM# --baud 115200 --rts 0 --dtr 0
 - (8) After waiting for a while, the captured photo would be shown on your screen
 - (9) The Flask will receive the data of the photo and save it into your local device
 
+---
+## 💕 Welcome your contribution!!!
+**Contributions are welcome! Please open an issue or submit a pull request.**
 
+----
+## 😀 License
+This project is licensed under the MIT License.
 
+----
+## How can you contact me?
+E-mail: zhuyiming040@gmail.com
 
 
 
