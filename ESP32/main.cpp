@@ -8,6 +8,8 @@
 // Define camera pins for AI Thinker model
 #define CAMERA_MODEL_AI_THINKER
 
+// Define the GPIO pins for the LED
+const int LED_PIN = 4;
 const char* ssid = "iPhone 16 Pro Max";   // Please replace with your WiFi SSID if you want to use WiFi
 const char* password = "20070121Louis";   // Please replace with your WiFi password if you want to use WiFi
 
@@ -142,35 +144,54 @@ void submitPhoto() {
 
 // As we need to training the ESP32-CAM, we need to save the photo to the server
 void savePhoto() {
-  // Create an HTTP client to post the photo to a server
-  HTTPClient http;
-  Serial.println("Uploading photo to server...");
+  // Set a variable to calculate the times of re-uploading the photo
+  int saveAttempts = 0; 
+  // Set a variable to check if the photo is saved successfully
+  bool saveSuccess = false;
 
-  // Specify the URL of the server where the photo will be uploaded
-  http.begin("http://172.20.10.2:5000/upload"); // Replace with your server URL
+  // Set a loop to retry saving the photo up to 3 times
+  while(saveAttempts <= 3 && saveSuccess == false) {
 
-  // Based on my testing, the ESP32-CAM's timeout is very short
-  // So I enlongate the timeout to 15 seconds
-  http.setTimeout(15000); // Set timeout to 15 seconds
-  
-  // Set the content type to JPEG
-  http.addHeader("Content-Type", "image/jpeg");
+    // Create an HTTP client to post the photo to a server
+    HTTPClient http;
+    Serial.println("Uploading photo to server...");
 
-  // Send the photo data as a POST request
-  // The varible httpResponseCode will store the response code from the server. "200" means success
-  int httpResponseCode = http.POST(fb->buf, fb->len);
+    // Specify the URL of the server where the photo will be uploaded
+    http.begin("http://172.20.10.2:5000/upload"); // Replace with your server URL
 
-  // Check if the HTTP request was successful
-  if (httpResponseCode > 0) {
-    // Log the response code from the server
-    Serial.printf("Photo uploaded successfully, response code: %d\n", httpResponseCode);
-  } else {
-    // Log an error message if the upload failed
-    Serial.printf("Failed to upload photo, error: %s\n", http.errorToString(httpResponseCode).c_str());
+    // Based on my testing, the ESP32-CAM's timeout is very short
+    // So I enlongate the timeout to 15 seconds
+    http.setTimeout(15000); // Set timeout to 15 seconds
+    
+    // Set the content type to JPEG
+    http.addHeader("Content-Type", "image/jpeg");
+
+    // Send the photo data as a POST request
+    // The varible httpResponseCode will store the response code from the server. "200" means success
+    int httpResponseCode = http.POST(fb->buf, fb->len);
+
+    // Check if the HTTP request was successful
+    if (httpResponseCode > 0) {
+      // Log the response code from the server
+      Serial.printf("Photo uploaded successfully, response code: %d\n", httpResponseCode);
+      saveSuccess = true; 
+      // End the HTTP connection
+      http.end();
+      // Turn on the LED to indicate the photo is saved successfully
+      digitalWrite(LED_PIN, HIGH);
+      delay(1000); // Keep the LED on for 1 second
+      digitalWrite(LED_PIN, LOW); // Turn off the LED
+      return;
+    }else {
+      // Log an error message if the upload failed
+      Serial.printf("Failed to upload photo, error: %s\n", http.errorToString(httpResponseCode).c_str());
+      // Increment the saveAttempts counter
+      saveAttempts++;
+      Serial.printf("Retrying to upload photo, attempt %d\n", saveAttempts);
+      // End the HTTP connection
+      http.end();
+    }
   }
-
-  // End the HTTP connection
-  http.end();
 }
 
 // Function to release the photo frame buffer, which frees up the memory used by the captured photo
@@ -225,8 +246,8 @@ void setup() {
   if(psramFound()){
     Serial.println("PSRAM found - using high resolution");
     config.frame_size = FRAMESIZE_UXGA;    
-    config.jpeg_quality = 10;              
-    config.fb_count = 2;                   
+    config.jpeg_quality = 20;              
+    config.fb_count = 1;                   
   } else {
     Serial.println("PSRAM not found - using low resolution");
     config.frame_size = FRAMESIZE_SVGA;    
@@ -260,6 +281,11 @@ void setup() {
 
   // Handle the photo request
   server.on("/photo", handlePhoto);
+
+  // Set the mode of the LED pin to OUTPUT
+  pinMode(LED_PIN, OUTPUT);
+  // Turn off the LED initially
+  digitalWrite(LED_PIN, LOW);
 }
 
 void loop() {
