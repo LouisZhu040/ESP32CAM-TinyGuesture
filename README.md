@@ -44,7 +44,9 @@ pio device monitor --port COM# --baud 115200 --rts 0 --dtr 0
 - (6) Run the file named "FlaskSetup.py" to set up your Flask server
 - (7) Press "Take Photo" to enable the capture function
 - (8) After waiting for a while, the captured photo would be shown on your screen
-- (9) The Flask will receive the data of the photo and save it into your local device
+- (9) The Flask will receive the data of the photo and save it to your local device
+- (10) Collecting all the data and looping them in data_preprocesss.py, which is responsible for data processing (normalizing construct array...)
+- (11) After gaining the training data and test data, we can get started on training our model.
 
 ---
 ## 💕 Welcome your contribution!!!
