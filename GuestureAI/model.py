@@ -1,19 +1,5 @@
-import torch
-from torch.utils.data import TensorDataset, DataLoader
-from data_preprocess import process_data
 import torch.nn as nn
 import torch.nn.functional as F
-
-# Read the data from data_preprocess section
-X_train, X_val, Y_train, Y_val = process_data()
-
-# Because the Numpy cannot be directly used by CNN, transformation into tensor is required
-# Since the images are normalized to [0, 1], we use float32 to represent the pixel values
-X_train_tensor = torch.tensor(X_train, dtype=torch.float32)     
-# Convert the labels to 1D tensor by using squeeze() to remove the extra dimension
-Y_train_tensor = torch.tensor(Y_train, dtype=torch.long).squeeze()  # troch.long is used for integer labels
-X_val_tensor = torch.tensor(X_val, dtype=torch.float32)
-Y_val_tensor = torch.tensor(Y_val, dtype=torch.long).squeeze()
 
 # Start to create CNN model
 class  MyCNNModel(nn.Module):
