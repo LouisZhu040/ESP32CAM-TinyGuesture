@@ -37,7 +37,7 @@ class  MyCNNModel(nn.Module):
         self.fc1 = nn.Linear(self.flatten_size, 64)  
         # The second fully connected layer: takes the output from the first fully connected layer
         # and outputs 2 neurons, which corresponds to the two classes (Ye and Noye).
-        self.fc2 = nn.Linear(64, 2)                    # 再输出2类（可以改为你需要的类别数）
+        self.fc2 = nn.Linear(64, 2)                    # This is the final output layer, which will produce the final predictions
 
     # Define the forward pass of the model
     # This method defines how the input data flows through the model
