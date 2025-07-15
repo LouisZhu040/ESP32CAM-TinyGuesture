@@ -48,8 +48,13 @@ criterion = torch.nn.CrossEntropyLoss()
 # lr=0.001 is the learning rate, which controls how much to change the model's parameters
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
+# Set an early stopping condition
+low_loss_counter = 0
+loss_threshold = 0.0001
+max_low_loss_times = 5 
+
 # Training the model
-num_epochs = 20  # Number of epochs to train the model
+num_epochs = 100  # Number of epochs to train the model
 for epoch in range(num_epochs):
     model.train()  # Set the model to training mode
     running_loss = 0.0  # Initialize the running loss for this epoch
@@ -66,8 +71,17 @@ for epoch in range(num_epochs):
         optimizer.step()  # Update the model's parameters
 
         running_loss += loss.item()  # Accumulate the loss
+        avg_loss = running_loss / len(train_loader)
+    # The early stopping condition
+    if avg_loss <= loss_threshold:
+        low_loss_counter += 1
+    else:
+        low_loss_counter = 0 
 
-    print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {running_loss/len(train_loader):.4f}')  # Print the average loss for this epoch
+    if low_loss_counter >= max_low_loss_times:
+        print(f" Loss continutely loss {max_low_loss_times} times ≤ {loss_threshold}，stop training.")
+        break
+    
 
 # Save the trained model
 torch.save(model.state_dict(), model_path)
