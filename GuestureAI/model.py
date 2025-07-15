@@ -53,10 +53,9 @@ class  MyCNNModel(nn.Module):
 
         # .view() is used to reshape the tensor
         # -1 means the size of this dimension will be inferred from the other dimensions
-        x = x.view(-1, self.flatten_size)  # Flatten the output into a 1D vector
+        x = x.reshape(-1, self.flatten_size)  # Flatten the output into a 1D vector
         x = F.relu(self.fc1(x))            # Fully connected and activation
         x = self.fc2(x)                    # Final output layer: produces the final predictions
-
         return x
 
 
