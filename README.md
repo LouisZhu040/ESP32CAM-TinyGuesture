@@ -142,6 +142,9 @@ torch.onnx.export(model, example_input, 'model.onnx')
 ```text
 Pull requests welcome! Fork, clone, branch, PR.
 ```
+---
+---
+
 🔖 About the Old_version Branch
 - The Old_version branch contains valuable reference material that complements this project. It includes:
 
@@ -155,6 +158,10 @@ Pull requests welcome! Fork, clone, branch, PR.
 
 - I believe this branch can be very helpful for visitors who want to learn from the development journey and understand the underlying concepts better.
 
+🔖 About the Qucik-Collection Branch
+- I delted the Web function due to the slow sending speed of ESP32CAM to the web
+- However, this branch is able to qucikly collect the img data
+ 
 ---
 ---
 
