@@ -43,7 +43,7 @@ Most users forget to turn on flash when taking selfies in the dark. This project
 ✅ Model save/load capability
 ✅ Achieved around 90% validation accuracy
 ```
-<img width="442" height="113" alt="12b181a731703fb0b4025e7673bce7e3" src="https://github.com/user-attachments/assets/8ec0553c-52c9-4242-a7b2-d96241ec0146" /># ESP32CAM-TinyGesture
+<img width="442" height="113" alt="12b181a731703fb0b4025e7673bce7e3" src="https://github.com/user-attachments/assets/8ec0553c-52c9-4242-a7b2-d96241ec0146" />
 
 ```text
 🚧 Converting PyTorch model to TensorFlow Lite (TFLite)
