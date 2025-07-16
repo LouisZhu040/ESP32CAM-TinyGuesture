@@ -1,4 +1,4 @@
-# ESP32CAM-TinyGesture
+<img width="442" height="113" alt="12b181a731703fb0b4025e7673bce7e3" src="https://github.com/user-attachments/assets/8ec0553c-52c9-4242-a7b2-d96241ec0146" /># ESP32CAM-TinyGesture
 
 A lightweight **gesture data collection and recognition platform** built with **ESP32-CAM** and **Flask**, designed to capture images through a browser interface, upload them for training, and eventually run **real-time, offline gesture recognition** with **TinyML**. For example: ✌️ gesture to trigger the flash in dark environments.
 
@@ -38,19 +38,13 @@ Most users forget to turn on flash when taking selfies in the dark. This project
 ✅ HTTP POST to Flask backend
 ✅ Flask server receives and saves image data
 ✅ Data preprocessing script (grayscale, normalize, reshape)
-✅ CNN model defined in PyTorch
-✅ Model training and evaluation
+✅ CNN model defined in PyTorch with detailed comments
+✅ Model training and evaluation with accurate metrics
 ✅ Model save/load capability
-```
-
-## 🚧 Coming Soon
-
-```text
-🚧 ✌ Gesture dataset expansion
-🚧 Convert PyTorch model to TensorFlow Lite (TFLite)
+✅ Achieved around 90% validation accuracy
+🚧 Converting PyTorch model to TensorFlow Lite (TFLite)
 🚧 Flashlight activation logic based on gesture prediction
 🚧 Integrate gesture recognizer into ESP32-CAM firmware
-🚧 Improve FPS and responsiveness on edge
 ```
 
 ---
@@ -64,7 +58,7 @@ ESP32CAM-TinyGesture/
 │   |── FlaskSetup.py      # Flask backend to receive and store uploaded images
 |   └── data_preprocess.py     # Data normalization, grayscale conversion, reshape
 |   └── model.py               # CNN architecture in PyTorch
-|   └── train&model.py         # Trains the CNN
+|   └── train&test.py         # Trains the CNN
 ├── Photos/
 │   ├── ye/                # ✌ gesture samples (label: 1)
 │   └── noye/              # Neutral/other samples (label: 0)
@@ -111,38 +105,15 @@ python data_preprocess.py
 
 Processes images: grayscale → normalize → reshape → split
 
-### 6. Train Model
+### 6. Train&Test&Save Model
 
 ```bash
-python train_model.py
+python train&test.py
 ```
-
-Model:
-
-```python
-criterion = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-```
-
-### 7. Test Model
-
-```bash
-python test_model.py
-```
-
 Accuracy will be printed.
 
-### 8. Save/Load Model
 
-```python
-# Save model
-torch.save(model.state_dict(), 'saved_models/my_cnn_model.pth')
-
-# Load model
-model.load_state_dict(torch.load('saved_models/my_cnn_model.pth'))
-```
-
-### 9. Auto Load if Exists
+### 7. Auto Load if Exists
 
 ```python
 import os
@@ -151,7 +122,7 @@ if os.path.exists(model_path):
     model.load_state_dict(torch.load(model_path))
 ```
 
-### 10. Convert to TinyML (TODO)
+### 8. Convert to TinyML (TODO)
 
 ```bash
 # Export to ONNX
@@ -159,7 +130,7 @@ torch.onnx.export(model, example_input, 'model.onnx')
 
 # Convert to TFLite (via tf-onnx or TFLite converter)
 ```
-
+---
 ---
 
 ## 🤝 Contributing
@@ -167,7 +138,20 @@ torch.onnx.export(model, example_input, 'model.onnx')
 ```text
 Pull requests welcome! Fork, clone, branch, PR.
 ```
+🔖 About the Old_version Branch
+- The Old_version branch contains valuable reference material that complements this project. It includes:
 
+- My initial implementations before refactoring
+
+- Detailed comments explaining my understanding of CNN architectures
+
+- Insights on training and testing procedures, including debugging tips and accuracy calculations
+
+- Step-by-step thought processes that led to the current improved codebase
+
+- I believe this branch can be very helpful for visitors who want to learn from the development journey and understand the underlying concepts better.
+
+---
 ---
 
 ## 📫 Contact
