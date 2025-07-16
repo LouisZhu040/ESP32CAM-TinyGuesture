@@ -3,16 +3,6 @@ from model import MyCNNModel
 from data_preprocess import process_data
 from torch.utils.data import TensorDataset, DataLoader
 
-
-
-
-def debug_check(Y_val, outputs):
-    import numpy as np
-    _, predicted = torch.max(outputs, 1)
-    print(" Val Label Distribution:", np.bincount(Y_val))
-    print(" Model Prediction Distribution:", torch.bincount(predicted))
-
-
 def test(model, val_loader, criterio):
     # Start testing the model
     model.eval()  # set the model to evaluation mode
@@ -25,10 +15,6 @@ def test(model, val_loader, criterio):
         # Loop through each batch of validation data
         for images, labels in val_loader:
             outputs = model(images)             # Forward pass: compute the model's predictions
-
-            debug_check(labels.numpy(), outputs)
-
-
             # outputs.data contains the raw output from the model
             # torch.max() returns the maximum value and its index along the specified dimension
             # Because the output is a 2D tensor, we use dim=1 to find the maximum value along the class dimension
