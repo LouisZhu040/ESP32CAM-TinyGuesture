@@ -14,6 +14,6 @@ dummy_input = torch.randn(1, 1, 120, 160)
 onnx_model_path = r"E:\ESP32-CAM\Python-edgeAI-GuestureAI\data_model_train\gesture_model.onnx"
 # Export the model to ONNX format
 torch.onnx.export(model, dummy_input, onnx_model_path, opset_version=11)
-print("✅ 成功导出 ONNX 模型！")
+print("Exported model to ONNX format successfully at:", onnx_model_path)
 
 
