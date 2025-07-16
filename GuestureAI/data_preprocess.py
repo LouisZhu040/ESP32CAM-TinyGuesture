@@ -1,9 +1,9 @@
-import os
-import cv2
-import numpy as np
-from sklearn.model_selection import train_test_split
-
 def process_data():
+    import os
+    import cv2
+    import numpy as np
+    from sklearn.model_selection import train_test_split
+
     # Save the path of floders
     path_ye = r"E:\ESP32-CAM\Python-edgeAI-GuestureAI\Photos\ye"
     path_noye = r"E:\ESP32-CAM\Python-edgeAI-GuestureAI\Photos\noye"
@@ -29,6 +29,12 @@ def process_data():
     for photo in filesInYe:
         # Read the photo
         img = cv2.imread(os.path.join(path_ye, photo))
+        
+        # Jump the photo if it is None
+        if img is None:
+            print(f"Warning: {photo} is not a valid image file. Skipping...")
+            continue
+
         # resize all photos
         img = cv2.resize(img, (160, 120))
         # Convert the photo to grayscale
@@ -49,6 +55,11 @@ def process_data():
     for photo in filesInNoye:
         # Read the photo
         img = cv2.imread(os.path.join(path_noye, photo))
+        # Jump the photo if it is None
+        if img is None:
+            print(f"Warning: {photo} is not a valid image file. Skipping...")
+            continue
+        
         # resize all photos
         img = cv2.resize(img, (160, 120))
         # Convert the photo to grayscale
@@ -71,11 +82,16 @@ def process_data():
     # Combine the array in an x-axis
     X = np.concatenate([photos_noye, photos_ye], axis=0)
     # Mark the type of photo via "0" or "1"
-    Y = np.concatenate([labels_noye,labels_ye],axis=0)
+    # flatten the labels to make it a 1D array
+    # astype(int) is used to convert the labels to integer type
+    Y = np.concatenate([labels_noye, labels_ye], axis=0).flatten().astype(int)
 
     # Split the training photos and Vertificational Photos, using a random seed:"42" 
     # "shuffle=True" means the array will be randomly distributed before split up.  
-    X_train, X_val, Y_train, Y_val = train_test_split(X, Y, test_size=0.2, random_state=42, shuffle=True)
+    # "stratify=Y" means the split will keep the same proportion of classes in the training and validation sets
+    X_train, X_val, Y_train, Y_val = train_test_split(X, Y, test_size=0.2, random_state=42, shuffle=True, stratify=Y)
+    print("Train label distribution:", np.bincount(Y_train))
+    print("Val label distribution:", np.bincount(Y_val))
     return X_train, X_val, Y_train, Y_val
 
 
