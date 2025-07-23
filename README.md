@@ -129,8 +129,9 @@ if os.path.exists(model_path):
 ### 8. Convert to TinyML (TODO)
 
 ```bash
-Using ai-edge-torch_ToTransform.py to trans .pth to .tflite
+Due to the complexity and incompatibility issues between different versions of ONNX, PyTorch, and their exporters—especially when working with lightweight edge devices. We adopted the ai-edge-torch framework, which provides a more streamlined and hardware-friendly way to export PyTorch models directly to TFLite format. This significantly simplifies the deployment process and ensures better compatibility with embedded systems.
 ```
+Using ai-edge-torch_ToTransform.py to trans .pth to .tflite (!!! Please run it on Colab)
 
 ---
 ---
