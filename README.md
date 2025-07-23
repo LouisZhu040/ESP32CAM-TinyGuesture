@@ -129,11 +129,9 @@ if os.path.exists(model_path):
 ### 8. Convert to TinyML (TODO)
 
 ```bash
-# Export to ONNX
-torch.onnx.export(model, example_input, 'model.onnx')
-
-# Convert to TFLite (via tf-onnx or TFLite converter)
+Using ai-edge-torch_ToTransform.py to trans .pth to .tflite
 ```
+
 ---
 ---
 
@@ -158,8 +156,8 @@ Pull requests welcome! Fork, clone, branch, PR.
 
 - I believe this branch can be very helpful for visitors who want to learn from the development journey and understand the underlying concepts better.
 
-🔖 About the Qucik-Collection Branch
-- I delted the Web function due to the slow sending speed of ESP32CAM to the web
+🔖 About the Quick-Collection Branch
+- I deleted the Web function due to the slow sending speed of ESP32CAM to the web
 - However, this branch is able to qucikly collect the img data
  
 ---
