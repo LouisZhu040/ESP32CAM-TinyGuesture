@@ -1,1 +1,3 @@
-pip install torch torchvision onnx onnx-tf tensorflow
+pip install torch torchvision 
+pip install opencv-python numpy matplotlib
+pip install ai-edge-torch torch
