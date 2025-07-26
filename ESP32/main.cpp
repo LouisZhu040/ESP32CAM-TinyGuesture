@@ -5,6 +5,13 @@
 #include <WebServer.h>
 #include <esp_camera.h>
 #include <HTTPClient.h>
+// Import the model and TensorFlow Lite libraries
+#include "model.h"
+#include "tensorflow/lite/micro/micro_interpreter.h"
+#include "tensorflow/lite/schema/schema_generated.h"
+#include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
+#include "tensorflow/lite/version.h"
+
 // Define camera pins for AI Thinker model
 #define CAMERA_MODEL_AI_THINKER
 
